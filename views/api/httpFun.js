@@ -6,8 +6,8 @@ export default class Http {
     return this.Fetch('GET', endPoint, null)
   }
 
-  static async post(endPoint, data) {
-    return this.Fetch('POST', endPoint, data)
+  static async post(endPoint, data, image) {
+    return this.Fetch('POST', endPoint, data, image)
   }
 
   static async put(endPoint, data) {
@@ -22,15 +22,16 @@ export default class Http {
     return this.Fetch('DELETE', endPoint)
   }
 
-  static async Fetch(method, endPoint, data) {
+  static async Fetch(method, endPoint, data, image) {
     const config = new Config()
     return await Axios({
       method,
       url: `${config.BaseURL}${endPoint}`,
       data,
-      // withCredentials: true,
+      withCredentials: true,
       header: {
-        'Content-Type': 'multipart/form-data'
+        'Access-Control-Allow-Credentials': true,
+        'Content-Type': image ? 'multipart/form-data' : 'application/json'
       }
     })
   }

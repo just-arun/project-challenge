@@ -14,7 +14,7 @@ const { json, urlencoded } = express;
 
 const config = new Config
 
-const whitelist = config.corsWhitelist
+const whitelist = [ 'http://localhost:3000', 'http://localhost:9000' ]
 console.log(whitelist);
 
 export const CorsOptions = {
@@ -25,12 +25,12 @@ export const CorsOptions = {
       callback(new Error('Not allowed by CORS'))
     }
   },
-  withCredentials: true
+  credentials: true
 }
 
 
 DB();
-app.use(cors());
+app.use(cors(CorsOptions));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));

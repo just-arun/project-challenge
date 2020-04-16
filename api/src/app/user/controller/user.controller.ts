@@ -4,6 +4,9 @@ import UserService from "../services/user.service";
 import HttpStatus from "../../../util/statusCode";
 import uploadImg from "../../../middlewares/fileUpload";
 import { NewErr } from "../../../middlewares/errorHandler";
+import AuthController from "../../auth/controller/auth.controller";
+import Config from "../../../config/config";
+import AuthService from "../../auth/service/auth.service";
 
 export default class UserController {
   public static async create(req: Request, res: Response, next: NextFunction) {
@@ -12,14 +15,26 @@ export default class UserController {
         next(new NewErr(500, "Image not fount"));
       } else {
         const user: User = req.body;
-        console.log({ user });
-        console.log(req.file);
-        next(new NewErr(HttpStatus.formErr, "error"));
+        user.img = `uploads/${req.file.filename}`
+        return UserService.create(user)
+          .then(async (data) => {
+            const config = new Config();
+            const { access, refresh } = await AuthService.createJwt(data._id);
+            res.cookie(
+              config.accessCookieName,
+              access,
+              AuthController.cookieOption(config.tenMin)
+            );
+            res.cookie(
+              config.refreshCookieName,
+              refresh,
+              AuthController.cookieOption(config.oneWeek)
+            );
+            res.status(HttpStatus.ok).json({data})
+          })
+          .catch((err) => next(err));
       }
     });
-    // return {User}Service.create(user)
-    //   .then((data) => res.status(HttpStatus.ok).json({ data }))
-    //   .catch((err) => next(err));
   }
   public static async update() {}
 }

@@ -2,6 +2,7 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import axios from 'axios'
+import sha512 from 'js-sha512'
 import UserService from '@/api/services/user.service.js'
 // import Config from '~/config/config.js'
 export default {
@@ -106,22 +107,15 @@ export default {
     },
     async save() {
       try {
+        const hash = sha512.update(this.password)
         // const config = new Config()
         const form = new FormData()
         form.append('img', this.image, this.image.name)
         form.append('email', this.email)
-        form.append('password', this.password)
+        form.append('password', hash.hex())
         form.append('dob', this.dob)
         form.append('address', this.address)
         form.append('phoneNumber', this.phoneNumber)
-        console.log(
-          this.image,
-          this.email,
-          this.password,
-          this.dob,
-          this.address,
-          this.phoneNumber
-        )
         return await UserService.register(form)
       } catch (err) {
         this.$store.dispatch('error/update', err)

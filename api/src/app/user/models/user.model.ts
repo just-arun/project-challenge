@@ -25,7 +25,7 @@ export const UserModel = model(
         type: String,
         required: true,
       },
-      proneNumber: {
+      phoneNumber: {
         type: Number,
         required: true,
       },
