@@ -1,3 +1,4 @@
+import { Auth } from './../../../middlewares/auth/auth';
 import { CheckErr } from "./../../../middlewares/checkErr";
 import { Router } from "express";
 import { check } from "express-validator";
@@ -19,6 +20,6 @@ UserRoute.post(
   create
 );
 
-UserRoute.get("/:id", getOne)
+UserRoute.get("/:id", Auth(), getOne)
 
 export default UserRoute;

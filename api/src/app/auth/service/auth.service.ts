@@ -65,7 +65,8 @@ export default class AuthService {
     const config = new Config()
     const secret = config.jwtSecret
     const token = (expiresIn: number)  => {
-      return JWT.sign({id}, secret, { expiresIn })
+      const date = Date.now() + expiresIn
+      return JWT.sign({id}, secret, { expiresIn: date })
     }
     return {
       access: token(config.tenMin),
