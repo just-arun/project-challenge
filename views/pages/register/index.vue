@@ -1,10 +1,10 @@
 <template src="./register.html"></template>
 <script>
-import Register from "@/components/register/register";
+import Register from '@/components/register/register'
 export default {
   layout: 'login',
   components: {
-      Register
+    Register
   },
   data() {
     return {}

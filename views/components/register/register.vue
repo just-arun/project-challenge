@@ -4,6 +4,7 @@
 import axios from 'axios'
 import sha512 from 'js-sha512'
 import UserService from '@/api/services/user.service.js'
+
 // import Config from '~/config/config.js'
 export default {
   data() {
@@ -116,7 +117,8 @@ export default {
         form.append('dob', this.dob)
         form.append('address', this.address)
         form.append('phoneNumber', this.phoneNumber)
-        return await UserService.register(form)
+        await UserService.register(form)
+        this.$router.push('/profile')
       } catch (err) {
         this.$store.dispatch('error/update', err)
         console.log(err)

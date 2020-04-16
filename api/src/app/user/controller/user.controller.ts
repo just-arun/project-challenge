@@ -37,4 +37,13 @@ export default class UserController {
     });
   }
   public static async update() {}
+  public static async getOne(req: Request, res: Response, next: NextFunction) {
+    const id = req.params.id
+    return UserService.getOne(id)
+    .then((data) => {
+      console.log(data);
+      res.status(HttpStatus.ok).json({data})
+    })
+    .catch(err => Promise.reject(err))
+  }
 }

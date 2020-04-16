@@ -7,6 +7,7 @@ import CookieParser from "cookie-parser";
 import cors from "cors";
 import path from "path";
 import UserRoute from './app/user/routes';
+import AuthRoute from './app/auth/routes';
 
 const app: Application = express();
 const { json, urlencoded } = express;
@@ -14,7 +15,7 @@ const { json, urlencoded } = express;
 
 const config = new Config
 
-const whitelist = [ 'http://localhost:3000', 'http://localhost:9000' ]
+const whitelist = config.corsWhitelist
 console.log(whitelist);
 
 export const CorsOptions = {
@@ -22,6 +23,7 @@ export const CorsOptions = {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
+      // callback(null, true)
       callback(new Error('Not allowed by CORS'))
     }
   },
@@ -30,14 +32,14 @@ export const CorsOptions = {
 
 
 DB();
-app.use(cors(CorsOptions));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(CookieParser());
 
 // route handlers
-app.use("/user", UserRoute)
+app.use('/auth', cors(CorsOptions), AuthRoute)
+app.use("/user", cors(CorsOptions), UserRoute)
 // error handler
 app.use(ErrorHandle())
 

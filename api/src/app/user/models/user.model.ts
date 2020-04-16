@@ -29,7 +29,7 @@ export const UserModel = model(
         type: Number,
         required: true,
       },
-      blog: [{ type: ObjectID }],
+      blog: [{ ref: "Posts", type: ObjectID, default: new Array(0) }],
     },
     { timestamps: true }
   )

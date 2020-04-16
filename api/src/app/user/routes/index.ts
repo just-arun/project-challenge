@@ -4,7 +4,7 @@ import { check } from "express-validator";
 import UserController from "../controller/user.controller";
 
 const UserRoute = Router();
-const { create, update } = UserController
+const { create, getOne } = UserController
 
 UserRoute.post(
   "/register",
@@ -18,5 +18,7 @@ UserRoute.post(
   CheckErr(),
   create
 );
+
+UserRoute.get("/:id", getOne)
 
 export default UserRoute;

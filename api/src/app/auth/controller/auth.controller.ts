@@ -15,12 +15,12 @@ export default class AuthController {
         res.cookie(
           config.accessCookieName,
           access,
-          this.cookieOption(config.tenMin)
+          { httpOnly: true, maxAge: config.tenMin }
         );
         res.cookie(
           config.refreshCookieName,
           refresh,
-          this.cookieOption(config.oneWeek)
+          { httpOnly: true, maxAge: config.oneWeek }
         );
         res.status(HttpStatus.ok).json({data})
       })

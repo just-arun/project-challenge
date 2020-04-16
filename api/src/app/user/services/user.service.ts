@@ -44,7 +44,11 @@ export default class UserService {
     const _id = new ObjectID(id);
     return UserModel.findOne({ _id })
       .exec()
-      .then((res) => res)
+      .then((res: any) => {
+        let data = res
+        delete data.password
+        return data
+      })
       .catch((err) => Promise.reject(err))
       .finally(() => console.log("getOne finished"));
   }
