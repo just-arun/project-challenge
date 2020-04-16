@@ -37,10 +37,10 @@ export const UserModel = model(
 
 export class User {
   public _id?: string;
-  public email?: string;
-  public password?: string;
-  public img?: string;
-  public dob?: string;
-  public address?: string;
-  public proneNumber?: string;
+  public email!: string;
+  public password!: string;
+  public img!: string;
+  public dob!: string;
+  public address!: string;
+  public proneNumber!: string;
 }

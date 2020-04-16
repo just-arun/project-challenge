@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 export const ErrorHandle = () => {
   return (err: NewErr, req: Request, res: Response, next: NextFunction) => {
-    res.status(err.code || 500).json({ error: { message: err.message } });
+    res.status(err.code || 500).json({ error: { message: err.message || err } });
   };
 };
 
