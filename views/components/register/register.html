@@ -1,0 +1,109 @@
+<div class="register-component">
+  <v-card class="pa-4 cus-card">
+    <v-card-title primary-title>
+      Register
+    </v-card-title>
+    <v-card-text>
+      <form ref="form" @submit.prevent="submitHandle()">
+        <v-layout row wrap>
+          <v-flex xs12 md6>
+            <v-text-field
+              :error-messages="err.email"
+              filled
+              append-inner-icon="email"
+              v-model="email"
+              name="email"
+              label="email"
+              class="pa-2"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12 md6>
+            <v-file-input
+              :error-messages="err.img"
+              label="Profile Picture"
+              prepend-icon="mdi-paperclip"
+              filled
+              name="img"
+              class="pa-2"
+              @change="setupImage($event)"
+            >
+              <template v-slot:selection="{ index, text }">
+                <v-chip
+                  v-if="text"
+                  color="deep-purple accent-4"
+                  dark
+                  filled
+                  label
+                  small
+                >
+                  {{ text }}
+                </v-chip>
+              </template>
+            </v-file-input>
+          </v-flex>
+          <v-flex xs12 md6>
+            <v-text-field
+              v-model="phoneNumber"
+              filled
+              type="number"
+              label="Phone Number"
+              class="pa-2"
+              :error-messages="err.number"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12 md6>
+            <v-text-field
+              class="pa-2"
+              readonly
+              v-model="computedDateFormatted"
+              @click="dobTrigger = true"
+              filled
+              label="DOB"
+              :error-messages="err.dob"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12 md6>
+            <v-text-field
+              v-model="password"
+              class="pa-2"
+              filled
+              label="password"
+              :error-messages="err.pwd"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12 md6>
+            <v-text-field
+              class="pa-2"
+              filled
+              v-model="password2"
+              :error-messages="err.pwd2"
+              label="confirm password"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs12>
+            <v-textarea
+              auto-grow
+              class="px-2"
+              label="address"
+              filled
+              :error-messages="err.address"
+              v-model="address"
+            ></v-textarea>
+          </v-flex>
+        </v-layout>
+        <v-layout row wrap class="pr-2">
+          <v-spacer></v-spacer>
+          <v-btn type="submit" color="success">register</v-btn>
+        </v-layout>
+      </form>
+    </v-card-text>
+    <v-dialog
+        v-model="dobTrigger"
+        persistent :overlay="false"
+        max-width="300px"
+        transition="dialog-transition"
+    >
+    <v-date-picker @change="dobTrigger = !dobTrigger" v-model="dob"></v-date-picker>
+    </v-dialog>
+  </v-card>
+</div>

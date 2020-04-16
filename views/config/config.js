@@ -1,3 +1,3 @@
 export default class Config {
-    BaseURL = 'http://localhost:9000'
+  BaseURL = 'http://localhost:9000'
 }

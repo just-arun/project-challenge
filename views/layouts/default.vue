@@ -1,5 +1,8 @@
 <template>
   <v-app dark>
+    <v-snackbar v-model="$store.state.error.message">
+      {{ $store.state.error.message }}
+    </v-snackbar>
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"

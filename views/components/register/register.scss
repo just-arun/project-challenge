@@ -1,0 +1,10 @@
+.register-component {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .cus-card {
+        min-width: 300px;
+        max-width: 600px;
+    }
+}
