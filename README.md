@@ -8,6 +8,6 @@ npm run dev
 
 run client sight
 ```sh
-cd view
+cd views
 npm run dev
 ```
