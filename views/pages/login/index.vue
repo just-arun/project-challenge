@@ -33,7 +33,7 @@
 
 <script>
 import sha512 from 'js-sha512'
-import UserService from '@/api/services/user.service.js'
+import UserService from '../../api/services/user.service'
 export default {
   layout: 'login',
   components: {},
@@ -76,13 +76,21 @@ export default {
         this.login({ email: this.email, password: hash.hex() })
       }
     },
+    redirect() {
+      setTimeout(() => {
+        this.$router.push('/')
+      }, 500)
+    },
+    // eslint-disable-next-line require-await
     async login(para) {
       try {
+        console.log('login fun')
         const res = await UserService.login(para)
-        console.log(res.data)
+        console.log(res)
         this.$store.dispatch('auth/getUserData', res.data.data._id)
-        return this.$router.push('/profile')
+        this.redirect()
       } catch (err) {
+        console.log({ err })
         this.$store.dispatch('error/update', err)
       }
     }

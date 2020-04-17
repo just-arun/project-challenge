@@ -4,7 +4,7 @@ import AuthController from '../controller/auth.controller';
 import { CheckErr } from '../../../middlewares/checkErr';
 
 const AuthRoute = Router()
-const { login } = AuthController
+const { login, logout } = AuthController
 
 AuthRoute.post('/user/login',
 [
@@ -13,5 +13,7 @@ AuthRoute.post('/user/login',
     CheckErr()
 ],
 login);
+
+AuthRoute.post('/logout', logout)
 
 export default AuthRoute

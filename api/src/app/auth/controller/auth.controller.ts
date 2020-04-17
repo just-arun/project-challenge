@@ -31,4 +31,19 @@ export default class AuthController {
   static cookieOption(maxAge: number) {
     return { httpOnly: true, maxAge };
   }
+
+  static async logout(req: Request, res: Response, next: NextFunction) {
+    const config = new Config();
+    res.cookie(
+      config.accessCookieName,
+      "",
+      { maxAge: -1 }
+    );
+    res.cookie(
+      config.refreshCookieName,
+      "",
+      { maxAge: - 1 }
+    );
+    res.sendStatus(HttpStatus.ok)
+  }
 }

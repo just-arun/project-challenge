@@ -106,6 +106,11 @@ export default {
         }
       }
     },
+    redirect() {
+      setTimeout(() => {
+        this.$router.push('/profile')
+      }, 1000)
+    },
     async save() {
       try {
         const hash = sha512.update(this.password)
@@ -117,8 +122,9 @@ export default {
         form.append('dob', this.dob)
         form.append('address', this.address)
         form.append('phoneNumber', this.phoneNumber)
-        await UserService.register(form)
-        this.$router.push('/profile')
+        const res = await UserService.register(form)
+        await this.$store.dispatch('auth/getUserData', res.data.data._id)
+        this.redirect()
       } catch (err) {
         this.$store.dispatch('error/update', err)
         console.log(err)

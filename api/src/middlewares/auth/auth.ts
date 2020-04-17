@@ -8,7 +8,7 @@ import AuthService from "../../app/auth/service/auth.service";
 import Config from "../../config/config";
 
 export const Auth = () => {
-  return async (req: Request, res: Response, next: any) => {
+  return async (req: any, res: Response, next: any) => {
     try {
       const config = new Config();
       const access = req.cookies[config.accessCookieName];
@@ -37,6 +37,8 @@ export const Auth = () => {
             } else {
               let rollExist = true;
               if (rollExist) {
+                req.email = user.email
+                req.uID = user._id
                 return next();
               } else {
                 return res
@@ -93,6 +95,8 @@ export const Auth = () => {
                       { ref: refreshT },
                       { httpOnly: true, maxAge: config.oneWeek }
                     );
+                    req.email = user.email
+                    req.uID = user._id
                     return next();
                   })
                   .catch((err) =>
@@ -114,6 +118,7 @@ export const Auth = () => {
           });
       }
     } catch (err) {
+      console.log(err);
       return res
         .status(HttpStatus.unauthorized)
         .json({ error: { message: "Unauthorized" } });

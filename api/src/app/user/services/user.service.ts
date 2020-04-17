@@ -18,14 +18,15 @@ export default class UserService {
           );
         } else {
           return await AuthService.creatHash(user.password)
-          .then((hash: string) => {
-            user.password = hash
-            return new UserModel(user)
-              .save()
-              .then((res) => res)
-              .catch((err) => Promise.reject(err))
-              .finally(() => console.log("create finished"));
-          }).catch(err => Promise.reject(err))
+            .then((hash: string) => {
+              user.password = hash;
+              return new UserModel(user)
+                .save()
+                .then((res) => res)
+                .catch((err) => Promise.reject(err))
+                .finally(() => console.log("create finished"));
+            })
+            .catch((err) => Promise.reject(err));
         }
       })
       .catch((err) => Promise.reject(err));
@@ -43,11 +44,22 @@ export default class UserService {
   public static async getOne(id: string): Promise<any> {
     const _id = new ObjectID(id);
     return UserModel.findOne({ _id })
+      .select({
+        blog: 1,
+        _id: 1,
+        email: 1,
+        dob: 1,
+        address: 1,
+        phoneNumber: 1,
+        img: 1,
+        createdAt: 1,
+        updatedAt: 1,
+      })
       .exec()
       .then((res: any) => {
-        let data = res
-        delete data.password
-        return data
+        var data: any = res;
+        delete data.password;
+        return data;
       })
       .catch((err) => Promise.reject(err))
       .finally(() => console.log("getOne finished"));

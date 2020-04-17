@@ -14,7 +14,7 @@ export const PostModel = model(
         required: true,
       },
       author: {
-        res: "User",
+        ref: "User",
         type: ObjectID,
         required: true,
       },
@@ -24,7 +24,7 @@ export const PostModel = model(
       },
       comments: [
         {
-          res: "Comments",
+          ref: "Comments",
           type: ObjectID,
           default: new Array(0),
         },
@@ -33,3 +33,11 @@ export const PostModel = model(
     { timestamps: true }
   )
 );
+
+export class Post {
+  public title!: string
+  public body!: string
+  public author!: string | ObjectID
+  public img!: string
+  public comments?: string[]
+}

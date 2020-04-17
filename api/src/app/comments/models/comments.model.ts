@@ -14,6 +14,11 @@ export const CommentModel = model(
         type: String,
         required: true,
       },
+      post: {
+        ref: 'Posts',
+        type: ObjectID,
+        required: true
+      },
       img: {
         type: String,
       },
@@ -21,3 +26,11 @@ export const CommentModel = model(
     { timestamps: true }
   )
 );
+
+
+export class Comments {
+  public user!: string | ObjectID
+  public comment!: string
+  public img!: string
+  public post!: string | ObjectID
+}

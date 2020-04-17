@@ -9,7 +9,11 @@ export default class UserService {
     return await Http.post('/auth/user/login', data)
   }
 
-  static async getUserDetail(id) {
-    return await Http.get(`/user/${id}`)
+  static async getUserDetail() {
+    return await Http.get(`/user/me`)
+  }
+
+  static async logout() {
+    return await Http.post('/auth/logout')
   }
 }

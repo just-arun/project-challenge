@@ -37,10 +37,11 @@ export default class UserController {
     });
   }
   public static async update() {}
-  public static async getOne(req: Request, res: Response, next: NextFunction) {
-    const id = req.params.id
+  public static async getOne(req: any, res: Response, next: NextFunction) {
+    const id = req.uID
     return UserService.getOne(id)
     .then((data) => {
+      delete data.password
       console.log(data);
       res.status(HttpStatus.ok).json({data})
     })

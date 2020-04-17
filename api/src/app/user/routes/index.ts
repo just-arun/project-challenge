@@ -20,6 +20,6 @@ UserRoute.post(
   create
 );
 
-UserRoute.get("/:id", Auth(), getOne)
+UserRoute.get("/me", Auth(), getOne)
 
 export default UserRoute;
