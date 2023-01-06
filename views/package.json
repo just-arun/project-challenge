@@ -16,7 +16,7 @@
     "@nuxtjs/markdownit": "^1.2.9",
     "axios": "^0.19.2",
     "js-sha512": "^0.8.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "nuxt-material-design-icons": "^1.0.4",
     "vee-validate": "^3.2.5"
   },
